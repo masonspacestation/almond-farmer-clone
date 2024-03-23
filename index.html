@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
+  <script id="debug-script" src="https://cdn.jsdelivr.net/gh/MickShannahan/style-debug@latest/debug.min.js"
+    defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- <header class="text-center fw-bold p-2">
+    <h1 class="text-light ">Header</h1>
+  </header> -->
+
+  <main class="container-fluid">
+
+    <!-- SECTION rate and harvest display -->
+    <section class="row justify-content-center mt-5 pt-3">
+      <div id="season" class="col-3">0</div>
+    </section>
+    <section class="row justify-content-center align-content-end">
+      <div class="col-3">
+        <h3 id="harvest-rate">hrate</h3>
+      </div>
+      <div id="almondsSupply" class="col-4 bg-success text-light"></div>
+      <div class="col-3">
+        <h3 id="shipping-rate">srate</h3>
+      </div>
+    </section>
+
+    <!-- SECTION play area -->
+    <section id="play-area" class="row bg-success-subtle justify-content-center align-content-center p-5">
+
+      <button class="btn btn-dark w-25" onclick="harvestAlmonds()">Harvest</button>
+    </section>
+
+
+
+    <!-- SECTION upgrade buttons -->
+    <section id="upgrades-available" class="row bg-success-subtle justify-content-around p-5 pb-2">
+      <div class="col-2">
+        <button id="buy-tractors-btn" class="btn btn-outline-success border-2" onclick="upgradePerClick('tractors')">+
+          🚜</button>
+      </div>
+      <div class="col-2">
+        <button id="buy-trucks-btn" class="btn btn-outline-success border-2" onclick="upgradePerClick('trucks')">+
+          🚛</button>
+      </div>
+      <div class="col-2">
+        <button id="buy-bees-btn" class="btn btn-outline-success border-2" onclick="upgradePerInt('bees')">+ 🐝</button>
+      </div>
+      <div class="col-2">
+        <button id="buy-trees-btn" class="btn btn-outline-success border-2" onclick="upgradePerInt('trees')">+
+          🌳</button>
+      </div>
+    </section>
+
+    <!-- SECTION stats display -->
+    <section id="upgrades-purchased" class="row justify-content-around bg-info p-3 rounded rounded-2 mx-5">
+      <div class="col-4 border rounded rounded-2 border-2 border-light inner-shadow">
+        <h5 class="mt-2">Click Upgrades</h5>
+        <div id="draw-tractors" class="col-3">
+          <h2><span class="fs-6">🚜</span> 0</h2>
+        </div>
+        <div id="draw-trucks" class="col-3">
+          <h2><span class="fs-6">🚛</span> 0</h2>
+        </div>
+      </div>
+      <div class="col-4 border rounded rounded-2 border-2 border-light inner-shadow">
+        <h5 class="mt-2">Interval Upgrades</h5>
+        <div id="draw-bees" class="col-3">
+          <h2><span class="fs-6">🐝</span> 0</h2>
+        </div>
+        <div id="draw-trees" class="col-3">
+          <h2><span class="fs-6">🌳</span> 0</h2>
+        </div>
+      </div>
+    </section>
+    <section class="row justify-content-center align-content-center mt-4">
+      <div id="start-card" class="col-8 card bg-light shadow rounded rounded-2 p-5"><button
+          class="btn btn-success rounded rounded-pill" onclick="startGame()">Start Game</button></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
