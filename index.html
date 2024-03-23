@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="debug">
   <!-- <header class="text-center fw-bold p-2">
     <h1 class="text-light ">Header</h1>
   </header> -->
@@ -35,50 +35,72 @@
     </section>
 
     <!-- SECTION play area -->
-    <section id="play-area" class="row bg-success-subtle justify-content-center align-content-center p-5">
-
-      <button class="btn btn-dark w-25" onclick="harvestAlmonds()">Harvest</button>
+    <section id="play-area" class="row bg-lightest-green justify-content-around align-content-center p-5">
+      <div id="orchard" class="col-4 vertical-text text-start p-1 pt-4">
+        <p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>
+      </div>
+      <div class="col-1 d-flex align-items-center justify-content-center" h2 id="harvest-button"
+        onclick="harvestAlmonds()">🧑‍🌾
+      </div>
+      <div. id="orchard" class="col-4 vertical-text text-start">
+        <p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>
+      </div.>
     </section>
+
+    <!-- <button class="btn btn-success w-25" onclick="plantTrees()">plant</button> -->
+    <!-- <button class="btn btn-dark w-25" onclick="harvestAlmonds()">Harvest</button>
+    </section> -->
 
 
 
     <!-- SECTION upgrade buttons -->
-    <section id="upgrades-available" class="row bg-success-subtle justify-content-around p-5 pb-2">
+    <section id="upgrades-available" class="row bg-lightest-green justify-content-around px-5 py-2">
       <div class="col-2">
-        <button id="buy-tractors-btn" class="btn btn-outline-success border-2" onclick="upgradePerClick('tractors')">+
-          🚜</button>
+        <button id="buy-tractors-btn" class="btn btn-outline-success border-2 text-center"
+          onclick="purchaseUpgradePerClick('tractors')">🚜 40</button>
       </div>
       <div class="col-2">
-        <button id="buy-trucks-btn" class="btn btn-outline-success border-2" onclick="upgradePerClick('trucks')">+
-          🚛</button>
+        <button id="buy-trucks-btn" class="btn btn-outline-success border-2"
+          onclick="purchaseUpgradePerClick('trucks')">🚛 25</button>
       </div>
       <div class="col-2">
-        <button id="buy-bees-btn" class="btn btn-outline-success border-2" onclick="upgradePerInt('bees')">+ 🐝</button>
+        <button id="buy-bees-btn" class="btn btn-outline-success border-2" onclick="purchaseUpgradePerInt('bees')">🐝
+          50</button>
       </div>
       <div class="col-2">
-        <button id="buy-trees-btn" class="btn btn-outline-success border-2" onclick="upgradePerInt('trees')">+
-          🌳</button>
+        <button id="buy-trees-btn" class="btn btn-outline-success border-2" onclick="purchaseUpgradePerInt('trees')">🌳
+          75</button>
       </div>
     </section>
 
     <!-- SECTION stats display -->
     <section id="upgrades-purchased" class="row justify-content-around bg-info p-3 rounded rounded-2 mx-5">
-      <div class="col-4 border rounded rounded-2 border-2 border-light inner-shadow">
-        <h5 class="mt-2">Click Upgrades</h5>
-        <div id="draw-tractors" class="col-3">
-          <h2><span class="fs-6">🚜</span> 0</h2>
-        </div>
-        <div id="draw-trucks" class="col-3">
-          <h2><span class="fs-6">🚛</span> 0</h2>
+      <div class="col-5 border rounded rounded-2 border-2 border-light inner-shadow">
+
+        <h5 class="mt-2 text-center">Click Upgrades</h5>
+        <div class="row justify-content-around">
+          <div id="draw-tractors" class="col-5 p-2">
+            <h2><span class="fs-6">🚜</span> 0</h2>
+            <p><i>+3 each harvest</i></p>
+          </div>
+          <div id="draw-trucks" class="col-5 p-2">
+            <h2><span class="fs-6">🚛</span> 0</h2>
+            <p><i>+3 each harvest</i></p>
+          </div>
         </div>
       </div>
-      <div class="col-4 border rounded rounded-2 border-2 border-light inner-shadow">
-        <h5 class="mt-2">Interval Upgrades</h5>
-        <div id="draw-bees" class="col-3">
-          <h2><span class="fs-6">🐝</span> 0</h2>
-        </div>
-        <div id="draw-trees" class="col-3">
-          <h2><span class="fs-6">🌳</span> 0</h2>
+      <div class="col-5 border rounded rounded-2 border-2 border-light inner-shadow">
+
+        <h5 class="mt-2 text-center">Interval Upgrades</h5>
+        <div class="row justify-content-around">
+          <div id="draw-bees" class="col-5 p-2">
+            <h2><span class="fs-6">🐝</span> 0</h2>
+            <p><i>+5 every 3s</i></p>
+          </div>
+          <div id="draw-trees" class="col-5 p-2">
+            <h2><span class="fs-6">🌳</span> 0</h2>
+            <p><i>+5 every 3s</i></p>
+          </div>
         </div>
       </div>
     </section>

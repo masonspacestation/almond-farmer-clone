@@ -4,8 +4,10 @@ console.log("🥜 go nuts")
 let almonds = 0
 
 let farm = {
+  //harvestAlmonds()
   harvestRate: 100,
-  shippingRate: 3,
+  // autoHarvest()
+  shippingRate: 0,
 
   seasonHarvest: 0,
 }
@@ -33,20 +35,35 @@ let automaticUpgrades = [
     emoji: '🐝',
     price: 50,
     quantity: 0,
-    multiplier: 2
+    multiplier: 1.25
   },
   {
     name: 'trees',
     emoji: '🌳',
     price: 75,
     quantity: 0,
-    multiplier: 4
+    multiplier: 2
   }
 ];
 
 updateStats()
 
+// SECTION start game and interval
 
+let harvestInterval
+function startGame() {
+  document.getElementById('start-card').classList.add('d-none')
+  // if (!harvestInterval) {
+  harvestInterval = setInterval(autoHarvest, 3000)
+  // }
+}
+
+function autoHarvest() {
+  almonds += farm.shippingRate;
+  console.log(farm);
+
+  updateStats()
+}
 // SECTION player action
 function harvestAlmonds() {
   almonds += farm.harvestRate
@@ -56,7 +73,7 @@ function harvestAlmonds() {
 
 // SECTION modifiers
 
-function upgradePerClick(resource) {
+function purchaseUpgradePerClick(resource) {
   // trucks and tractors
   let clickUpgrade = clickUpgrades.find(upgrade => upgrade.name == resource)
   // console.log("upgrade: ", resource)
@@ -64,7 +81,7 @@ function upgradePerClick(resource) {
   if (almonds > clickUpgrade.price) {
     clickUpgrade.quantity += 1,
       almonds -= clickUpgrade.price,
-      (clickUpgrade.price += (1.05 * clickUpgrade.price)).toFixed(0),
+      (clickUpgrade.price += (clickUpgrade.multiplier * clickUpgrade.price)).toFixed(0),
       (farm.harvestRate += (3 * clickUpgrade.quantity)).toFixed(0)
   } else {
     console.log("didn't upgrade ", resource)
@@ -76,8 +93,14 @@ function upgradePerClick(resource) {
   updateStats()
 }
 
+function plantTrees() {
+  let orchardElem = document.getElementById('orchard')
+  orchardElem.innerHTML += `<p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>`
+  // let orchardElem = document.getElementById('orchard')
+  // orchardElem.innerText += '🌳🌳🌳🌳' //this needs to wrap based on the height of the space
+}
 
-function upgradePerInt(resource) {
+function purchaseUpgradePerInt(resource) {
   // bees and trees
   let intUpgrade = automaticUpgrades.find(upgrade => upgrade.name == resource)
   // console.log("upgrade: ", resource)
@@ -85,10 +108,14 @@ function upgradePerInt(resource) {
   if (almonds > intUpgrade.price) {
     almonds -= intUpgrade.price,
       intUpgrade.quantity += 1,
-      (intUpgrade.price += (1.05 * intUpgrade.price)).toFixed(0),
-      (farm.shippingRate += (3 * intUpgrade.quantity)).toFixed(0)
+      (intUpgrade.price += (.1 * intUpgrade.price)).toFixed(0),
+      (farm.shippingRate += (intUpgrade.multiplier * intUpgrade.quantity)).toFixed(0)
   } else {
     console.log("didn't upgrade ", resource)
+  }
+
+  if (intUpgrade.name == 'trees') {
+    plantTrees()
   }
   // document.getElementById(`draw-${intUpgrade.name}`).innerHTML = `<h2>${intUpgrade.quantity}</h2>`
   // document.getElementById(`buy-${intUpgrade.name}-btn`).innerHTML = `+ ${intUpgrade.emoji} ${(intUpgrade.price).toFixed(0)}`
@@ -96,66 +123,50 @@ function upgradePerInt(resource) {
   updateStats()
 }
 
+
+
 // function toggleButtons(){
 //   console.log("check buttons 1");
 // if(almonds >)
 // }
 
 
-function updateStats() {
-  // drawAlmondsSupply()
-  // drawShippingRate()
-  // drawHarvestRate()
-  // drawSeasonHarvest()
-  document.getElementById('almondsSupply').innerHTML = `<h2>${(almonds).toFixed(0)}</h2>`
-  document.getElementById('shipping-rate').innerHTML = `<span class='fs-6'>Shipping Rate(auto):</span><br><h2>${(farm.shippingRate).toFixed(0)}</h2>`
-  document.getElementById('harvest-rate').innerHTML = `<span class='fs-6'>Harvest Rate(manual):</span><br><h2>${(farm.harvestRate).toFixed(0)}</h2>`
-  document.getElementById('season').innerHTML = `<span class="fs-6">Season Total:</span><br><h5>${farm.seasonHarvest}</h5>`
-}
+
 
 
 // SECTION diplay
 
+// >>>>updates upgrades-available and upgrades-purchased
 function updateResources(resource) {
-  document.getElementById(`draw-${resource.name}`).innerHTML = `<h2><span class="fs-6">${resource.emoji}</span> ${resource.quantity}</h2>`
-
+  // buy buttons
   document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
+
+  // upgrade dashboard - upgrades-purchased
+  document.getElementById(`draw-${resource.name}`).innerHTML = `<h2><span class="fs-6">${resource.emoji}</span> ${resource.quantity}</h2>`
+}
+
+// >>>>updates top dashboard
+function updateStats() {
+
+  document.getElementById('season').innerHTML = `<span class="fs-6">Season Total:</span><br><h5>${farm.seasonHarvest}</h5>`
+
+  document.getElementById('harvest-rate').innerHTML = `<span class='fs-6'>Harvest Rate(manual):</span><br><h2>${(farm.harvestRate).toFixed(0)}<span class='fs-6'> /click</h2>`
+
+  document.getElementById('almondsSupply').innerHTML = `<span class='fs-6'>Almonds Harvested:</span><h2>${(almonds).toFixed(0)}</h2>`
+
+  document.getElementById('shipping-rate').innerHTML = `<span class='fs-6'>Shipping Rate(auto):</span><br><h2>${(farm.shippingRate).toFixed(0)}<span class='fs-6'> /3s</span></h2>`
+
 }
 
 
 
+// setInterval(function () { harvestAlmonds; test; }, 3000)
+// setInterval(harvestAlmonds, 3000)
 
-// function drawAlmondsSupply() {
-//   document.getElementById('almondsSupply').innerHTML = `<h2>${(almonds).toFixed(0)}</h2>`
-// }
-
-// function drawShippingRate() {
-//   // console.log('🚜 🚛 shipping upgrade purchased')
-//   document.getElementById('shipping-rate').innerHTML = `<h2>${(farm.shippingRate).toFixed(0)}</h2>`
-//   // bees and trees increase amount per interval (for stretch, could also speed up the interval at milestones); tractors and trucks increase amount per click
-// }
-
-// function drawHarvestRate() {
-//   // console.log('🐝 🌳 harvest upgrade purchased');
-//   document.getElementById('harvest-rate').innerHTML = `<h2>${(farm.harvestRate).toFixed(0)}</h2>`
-// }
+// let harvestInterval = setInterval(harvestAlmonds`, 3000)
 
 
-// function drawSeasonHarvest() {
-//   // console.log('📦📦📦 season harvest');
-//   document.getElementById('season').innerHTML = `<h5>Season Total: ${farm.seasonHarvest}</h5>`
-// }
 
-
-// SECTION interval
-function startGame() {
-
-  document.getElementById('start-card').classList.add('d-none')
-  // startCardElem.innerHTML = `<h5>Season Total: ${farm.seasonHarvest}</h5>`
-
-}
-
-// let harvestInterval = setInterval(harvestAlmonds, 3000)
 
 /* stretch
 function displayBadge1(){}
@@ -166,12 +177,7 @@ add/remove d-none — they will float over play area, with justify-content-aroun
 */
 
 
-
-
-
-
-
-/*!SECTION
+/*TODO outline
 ACTIONS
 [] click image to collect resource
         image with onclick

@@ -1,5 +1,5 @@
 body {
-  background-color: blanchedalmond;
+  background-color: #e0b87e;
 }
 
 /* header {
@@ -13,4 +13,33 @@ body {
 .inner-shadow {
   /* border: dashed lightgray 3px; */
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  line-height: .75em;
+}
+
+#harvest-button {
+  font-size: 90px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#orchard {
+  background-color: rgb(155, 122, 79);
+  background-image: url(assets/cardboard.png)
+}
+
+.bg-lightest-green {
+  background-color: #abbe99;
+
+}
+
+.color-preview {
+  color: #71873f;
+  color: #688557;
+  color: #a36627;
+  color: #e0b87e;
 }
