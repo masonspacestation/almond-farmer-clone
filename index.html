@@ -28,22 +28,39 @@
       <div class="col-3">
         <h3 id="harvest-rate">hrate</h3>
       </div>
-      <div id="almondsSupply" class="col-4 bg-success text-light"></div>
+      <div id="almondsSupply" class="col-4 bg-mid-green text-light rounded-top-3"></div>
       <div class="col-3">
         <h3 id="shipping-rate">srate</h3>
       </div>
     </section>
 
     <!-- SECTION play area -->
-    <section id="play-area" class="row bg-lightest-green justify-content-around align-content-center p-5">
-      <div id="orchard" class="col-4 vertical-text text-start p-1 pt-4">
-        <p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>
+    <section id="play-area"
+      class="row bg-lightest-green justify-content-center justify-content-md-around align-content-center p-5 pb-0">
+      <div id="orchard" class="col-10 col-md-4 rounded-top-2 text-start p-1 pt-4">
+        <p id="tree-rows" class="vertical-text">🌳</p>
+
+        <div id="swarm">
+          <!-- new bees go here -->
+          <!-- <p id="new-bees" class="vertical-text"><span id="new-bees">🐝</span>🐝</p> -->
+
+          <marquee behavior="alternate" scrollamount="9">
+            <marquee behavior="alternate" direction="up" scrollamount="10">
+              <span id="new-bees">🐝</span>
+              <span id="new-bees">🐝</span>
+            </marquee>
+          </marquee>
+        </div>
+
       </div>
-      <div class="col-1 d-flex align-items-center justify-content-center">
-        <span id="harvest-button" onclick="harvestAlmonds()">🧑‍🌾</span>
+
+
+      <div class="col-6 col-md-2 d-flex align-items-center justify-content-center">
+        <img src="assets/farmer-emoji.png" id="harvest-button" onclick="harvestAlmonds()"
+          alt="🧑‍🌾 farmer emoji"></img>
       </div>
-      <div. id="orchard" class="col-4 vertical-text text-start">
-        <p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>
+      <div. id="farm" class="col-10 col-md-4 rounded rounded-2 text-start p-1 pt-4">
+        <p id="vehicles" class="vertical-text">🚛🚜</p>
       </div.>
     </section>
 
@@ -55,26 +72,27 @@
 
     <!-- SECTION upgrade buttons -->
     <section id="upgrades-available" class="row bg-lightest-green justify-content-around px-5 py-2">
-      <div class="col-2">
-        <button id="buy-tractors-btn" class="btn btn-outline-success border-2 text-center"
+      <div class="col-2 d-flex justify-content-center align-items-center ">
+        <button id="buy-tractors-btn"
+          class="btn btn-outline-success border-2 text-center animated FadeInUp animatedFadeInUp"
           onclick="purchaseUpgradePerClick('tractors')">🚜 40</button>
       </div>
-      <div class="col-2">
+      <div class="col-2 d-flex justify-content-center align-items-center ">
         <button id="buy-trucks-btn" class="btn btn-outline-success border-2"
           onclick="purchaseUpgradePerClick('trucks')">🚛 25</button>
       </div>
-      <div class="col-2">
+      <div class="col-2 d-flex justify-content-center align-items-center ">
         <button id="buy-bees-btn" class="btn btn-outline-success border-2" onclick="purchaseUpgradePerInt('bees')">🐝
           50</button>
       </div>
-      <div class="col-2">
+      <div class="col-2 d-flex justify-content-center align-items-center ">
         <button id="buy-trees-btn" class="btn btn-outline-success border-2" onclick="purchaseUpgradePerInt('trees')">🌳
           75</button>
       </div>
     </section>
 
     <!-- SECTION stats display -->
-    <section id="upgrades-purchased" class="row justify-content-around bg-info p-3 rounded rounded-2 mx-5">
+    <section id="upgrades-purchased" class="row justify-content-around bg-mid-green p-3 rounded-bottom-3 mx-5">
       <div class="col-5 border rounded rounded-2 border-2 border-light inner-shadow">
 
         <h5 class="mt-2 text-center">Click Upgrades</h5>

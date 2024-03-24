@@ -93,6 +93,8 @@ function purchaseUpgradePerClick(resource) {
     console.log("didn't upgrade ", resource)
   }
 
+  // if (clickUpgrade.name == 'trucks')
+  buyVehicles(clickUpgrade.emoji)
   updateResources(clickUpgrade)
   updateStats()
 }
@@ -120,10 +122,31 @@ function purchaseUpgradePerInt(resource) {
 
 // 👉 plant trees when purchased
 function plantTrees() {
-  let orchardElem = document.getElementById('orchard')
-  orchardElem.innerHTML += `<p>🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳</p>`
-  // let orchardElem = document.getElementById('orchard')
-  // orchardElem.innerText += '🌳🌳🌳🌳' //this needs to wrap based on the height of the space
+  // set the first trees on the page at load, and just add to them here
+  let orchardElem = document.getElementById('tree-rows')
+  orchardElem.innerText += `🌳`
+}
+
+function moreBees() {
+
+  // let beeTemplate =
+  //   `<marquee behavior="alternate" scrollamount="9">
+  // <marquee behavior="alternate" direction="up" scrollamount="10">
+  // <span id="new-bees" class="vertical-text">🐝</span>
+  // </marquee>
+  // </marquee>`
+
+  let swarmElem = document.getElementById('new-bees')
+  swarmElem.innerHTML += `<span id="new-bees">🐝</span>`
+
+  // swarmElem.innerHTML += `<p id="new-bees" class="vertical-text">${beeTemplate}</p>`
+  // let marqueeX = swarmElem.querySelector('.swarm>marquee')
+  // let marqueeY = swarmElem.querySelector('swarm>marquee')
+}
+
+function buyVehicles(resource) {
+  let vehiclesElem = document.getElementById('vehicles')
+  vehiclesElem.innerText += resource
 }
 
 
@@ -134,6 +157,8 @@ function plantTrees() {
 function updateResources(resource) {
   // buy buttons
   document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
+
+  // document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
 
   // upgrade dashboard - upgrades-purchased
   document.getElementById(`draw-${resource.name}`).innerHTML = `<h2><span class="fs-6">${resource.emoji}</span> ${resource.quantity}</h2>`

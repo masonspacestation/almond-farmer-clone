@@ -8,7 +8,22 @@ body {
 
 #upgrades-available {
   min-height: 10dvh;
+  border-right: 3px solid #688557;
+  border-left: 3px solid #688557;
+  border-bottom: 3px solid #688557;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
+
+#play-area {
+  border-right: 3px solid #688557;
+  border-left: 3px solid #688557;
+  border-top: 3px solid #688557;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+}
+
 
 .inner-shadow {
   /* border: dashed lightgray 3px; */
@@ -18,23 +33,35 @@ body {
 .vertical-text {
   writing-mode: vertical-lr;
   text-orientation: upright;
-  line-height: .75em;
+  line-height: .1.5em;
+  text-wrap: wrap;
+  max-height: 28dvh;
 }
 
 #harvest-button {
-  font-size: 180px;
+  width: 100%;
   cursor: pointer;
   user-select: none;
 }
 
-#orchard {
+#orchard,
+#farm {
   background-color: rgb(155, 122, 79);
-  background-image: url(assets/cardboard.png)
+  background-image: url(assets/cardboard.png);
+  height: 30dvh;
+}
+
+marquee {
+  height: 25dvh;
 }
 
 .bg-lightest-green {
   background-color: #abbe99;
 
+}
+
+.bg-mid-green {
+  background-color: #688557;
 }
 
 .color-preview {
@@ -43,3 +70,48 @@ body {
   color: #a36627;
   color: #e0b87e;
 }
+
+body {
+  padding: 40px;
+}
+
+/* Animation
+
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both
+}
+
+.animatedFadeInUp {
+  opacity: 0
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
+} */
