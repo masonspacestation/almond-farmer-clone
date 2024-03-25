@@ -4,9 +4,7 @@ console.log("🥜 go nuts")
 let almonds = 0
 
 let farm = {
-  //harvestAlmonds()
   harvestRate: 100,
-  // autoHarvest()
   shippingRate: 0,
 
   seasonHarvest: 0,
@@ -53,15 +51,13 @@ let automaticUpgrades = [
 
 updateStats()
 
+
 // start interval and trigger auto harvesting
 let harvestInterval
 function startGame() {
-  document.getElementById('start-card').classList.add('d-none')
-  // if (!harvestInterval) {
+  document.getElementById('start-bg').remove()
   harvestInterval = setInterval(autoHarvest, 3000)
-  // }
 }
-
 
 function autoHarvest() {
   almonds += farm.shippingRate;
@@ -69,79 +65,35 @@ function autoHarvest() {
 
   updateStats()
 }
+
+
 // SECTION player action
 function harvestAlmonds() {
   almonds += farm.harvestRate
   farm.seasonHarvest += farm.harvestRate
 
-  toggleButtons()
   updateStats()
 }
 
-// SECTION modifiers
 
-// 👉 purchase trucks and tractors
+// SECTION purchase and display modifiers
+
+// 👉 purchase and display trucks and tractors
 function purchaseUpgradePerClick(resource) {
   let clickUpgrade = clickUpgrades.find(upgrade => upgrade.name == resource)
 
-  if (almonds > clickUpgrade.price) {
-    clickUpgrade.quantity += 1,
-      almonds -= clickUpgrade.price,
-      (clickUpgrade.price += (clickUpgrade.multiplier * clickUpgrade.price)).toFixed(0),
-      (farm.harvestRate += (3 * clickUpgrade.quantity)).toFixed(0)
-  } else {
-    console.log("didn't upgrade ", resource)
-  }
+  clickUpgrade.quantity += 1,
+    almonds -= clickUpgrade.price,
+    (clickUpgrade.price += (.2 * clickUpgrade.price)).toFixed(0),
+    (farm.harvestRate += 3).toFixed(0)
 
-  // if (clickUpgrade.name == 'trucks')
+  // update dashboard - trucks and tractors upgrades purchased
+  document.getElementById(`draw-${clickUpgrade.name}`).innerHTML = `<h2><span class="fs-6">${clickUpgrade.emoji}</span> ${clickUpgrade.quantity}</h2><p><i>+3 each harvest</i></p>`
+
+
   buyVehicles(clickUpgrade.emoji)
-  updateResources(clickUpgrade)
+  updateButtonValues(clickUpgrade)
   updateStats()
-}
-
-// 👉 purchase bees and trees
-function purchaseUpgradePerInt(resource) {
-  let intUpgrade = automaticUpgrades.find(upgrade => upgrade.name == resource)
-
-  if (almonds > intUpgrade.price) {
-    intUpgrade.quantity += 1,
-      almonds -= intUpgrade.price,
-      (farm.shippingRate += (intUpgrade.multiplier * intUpgrade.quantity)).toFixed(0),
-      (intUpgrade.price += (.1 * intUpgrade.price)).toFixed(0)
-  } else {
-    console.log("didn't upgrade ", resource)
-  }
-
-  if (intUpgrade.name == 'trees') {
-    plantTrees()
-  }
-
-  updateResources(intUpgrade)
-  updateStats()
-}
-
-// 👉 plant trees when purchased
-function plantTrees() {
-  // set the first trees on the page at load, and just add to them here
-  let orchardElem = document.getElementById('tree-rows')
-  orchardElem.innerText += `🌳`
-}
-
-function moreBees() {
-
-  // let beeTemplate =
-  //   `<marquee behavior="alternate" scrollamount="9">
-  // <marquee behavior="alternate" direction="up" scrollamount="10">
-  // <span id="new-bees" class="vertical-text">🐝</span>
-  // </marquee>
-  // </marquee>`
-
-  let swarmElem = document.getElementById('new-bees')
-  swarmElem.innerHTML += `<span id="new-bees">🐝</span>`
-
-  // swarmElem.innerHTML += `<p id="new-bees" class="vertical-text">${beeTemplate}</p>`
-  // let marqueeX = swarmElem.querySelector('.swarm>marquee')
-  // let marqueeY = swarmElem.querySelector('swarm>marquee')
 }
 
 function buyVehicles(resource) {
@@ -149,21 +101,46 @@ function buyVehicles(resource) {
   vehiclesElem.innerText += resource
 }
 
+// 👉 purchase and display bees and trees
+function purchaseUpgradePerInt(resource) {
+  let intUpgrade = automaticUpgrades.find(upgrade => upgrade.name == resource)
+
+  intUpgrade.quantity += 1,
+    almonds -= intUpgrade.price,
+    (farm.shippingRate += (intUpgrade.multiplier * intUpgrade.quantity)).toFixed(0),
+    (intUpgrade.price += (.1 * intUpgrade.price)).toFixed(0)
+  console.log(intUpgrade);
+  // update dashboard — bee and tree updates purchased
+  document.getElementById(`draw-${intUpgrade.name}`).innerHTML = `<h2><span class="fs-6">${intUpgrade.emoji}</span> ${intUpgrade.quantity}</h2><p><i>+5 every 3s</i></p>`
+
+  if (intUpgrade.name == 'trees') {
+    plantTrees()
+  } else {
+    moreBees()
+  }
+
+  updateButtonValues(intUpgrade)
+  updateStats()
+}
+
+// 👉 plant trees when purchased
+function plantTrees() {
+  let orchardElem = document.getElementById('tree-rows')
+  orchardElem.innerText += `🌳`
+}
+
+function moreBees() {
+  let swarmElem = document.getElementById('new-bees')
+  swarmElem.innerText += '🐝  '
+}
 
 
 // SECTION diplay
 
 // 👉 updates upgrades-available and upgrades-purchased
-function updateResources(resource) {
+function updateButtonValues(resource) {
   // buy buttons
   document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
-
-  // document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
-
-  // upgrade dashboard - upgrades-purchased
-  document.getElementById(`draw-${resource.name}`).innerHTML = `<h2><span class="fs-6">${resource.emoji}</span> ${resource.quantity}</h2>`
-
-  toggleButtons()
 }
 
 // 👉 updates top dashboard
@@ -180,10 +157,8 @@ function updateStats() {
   toggleButtons()
 }
 
-
+// check whether buttons should be visible or not
 function toggleButtons() {
-  console.log("check tractors buttons");
-
 
   clickUpgrades.forEach(clickResource => {
     console.log('clickResource= ', clickResource);
