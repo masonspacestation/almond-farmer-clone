@@ -28,14 +28,22 @@ let clickUpgrades = [
   }
 ];
 
-// bees and trees
+// bees and trees 
 let automaticUpgrades = [
   {
     name: 'bees',
     emoji: '🐝',
     price: 50,
     quantity: 0,
-    multiplier: 1.25
+    multiplier: 1,
+    // automaticUpgrades[0].tier2.name
+    tier2: {
+      name: 'bees',
+      emoji: '🍯',
+      price: 75,
+      quantity: 0,
+      multiplier: 3
+    },
   },
   {
     name: 'trees',
@@ -101,27 +109,57 @@ function buyVehicles(resource) {
   vehiclesElem.innerText += resource
 }
 
+// // 👉 purchase and display bees and trees +
+// function purchaseUpgradePerInt(resource) {
+//   let intUpgrade = automaticUpgrades.find(upgrade => upgrade.name == resource)
+
+//   intUpgrade.quantity += 1,
+//     almonds -= intUpgrade.price,
+//     (farm.shippingRate += (intUpgrade.multiplier * intUpgrade.quantity)).toFixed(0),
+//     (intUpgrade.price += (.1 * intUpgrade.price)).toFixed(0)
+
+//   // update dashboard — bee and tree updates purchased
+//   document.getElementById(`draw-${intUpgrade.name}`).innerHTML = `<h2><span class="fs-6">${intUpgrade.emoji}</span> ${intUpgrade.quantity}</h2><p><i>+5 every 3s</i></p>`
+
+//   if (intUpgrade.name == 'trees') {
+//     plantTrees()
+//   } else {
+//     moreBees()
+//   }
+
+//   updateButtonValues(intUpgrade)
+//   updateStats()
+// }
+
 // 👉 purchase and display bees and trees
 function purchaseUpgradePerInt(resource) {
   let intUpgrade = automaticUpgrades.find(upgrade => upgrade.name == resource)
 
-  intUpgrade.quantity += 1,
-    almonds -= intUpgrade.price,
-    (farm.shippingRate += (intUpgrade.multiplier * intUpgrade.quantity)).toFixed(0),
-    (intUpgrade.price += (.1 * intUpgrade.price)).toFixed(0)
-  console.log(intUpgrade);
-  // update dashboard — bee and tree updates purchased
-  document.getElementById(`draw-${intUpgrade.name}`).innerHTML = `<h2><span class="fs-6">${intUpgrade.emoji}</span> ${intUpgrade.quantity}</h2><p><i>+5 every 3s</i></p>`
+  if (intUpgrade.quantity <= 10) {
+    assignUpgradePerInt(intUpgrade)
+  } else {
+    let intUpgrade2 = intUpgrade.tier2
+    assignUpgradePerInt(intUpgrade2)
+  }
+}
 
-  if (intUpgrade.name == 'trees') {
+function assignUpgradePerInt(resource) {
+
+  resource.quantity += 1,
+    almonds -= resource.price,
+    (farm.shippingRate += (resource.multiplier * resource.quantity)).toFixed(0),
+    (resource.price += (.1 * resource.price)).toFixed(0)
+
+  // update dashboard — bee and tree updates purchased
+  if (resource.name == 'trees') {
     plantTrees()
   } else {
     moreBees()
   }
-
-  updateButtonValues(intUpgrade)
+  updateButtonValues(resource)
   updateStats()
 }
+
 
 // 👉 plant trees when purchased
 function plantTrees() {
@@ -135,13 +173,18 @@ function moreBees() {
 }
 
 
-// SECTION diplay
+// SECTION display
 
 // 👉 updates upgrades-available and upgrades-purchased
 function updateButtonValues(resource) {
   // buy buttons
   document.getElementById(`buy-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
 }
+
+// function updateTierTwoButtons(resource) {
+//   // buy buttons
+//   document.getElementById(`buy-two-${resource.name}-btn`).innerHTML = `${resource.emoji} ${(resource.price).toFixed(0)}`
+// }
 
 // 👉 updates top dashboard
 function updateStats() {
@@ -161,16 +204,14 @@ function updateStats() {
 function toggleButtons() {
 
   clickUpgrades.forEach(clickResource => {
-    console.log('clickResource= ', clickResource);
     let clickResourceButtonElem = document.getElementById(`buy-${clickResource.name}-btn`)
-    console.log(clickResourceButtonElem);
+
     almonds >= clickResource.price ? clickResourceButtonElem.classList.remove('d-none') : clickResourceButtonElem.classList.add('d-none');
   })
 
   automaticUpgrades.forEach(intResource => {
-    console.log('intResource= ', intResource);
     let intResourceButtonElem = document.getElementById(`buy-${intResource.name}-btn`)
-    console.log(intResourceButtonElem);
+
     almonds >= intResource.price ? intResourceButtonElem.classList.remove('d-none') : intResourceButtonElem.classList.add('d-none');
   })
 
